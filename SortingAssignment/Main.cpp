@@ -8,13 +8,32 @@ using namespace std;
 void quickSortMiddle(vector<int>&, int, int);
 
 // quickSortMEdian will take care of any sorting that uses the median of the first,last and middle elements as a pivot
-void quickSortMedian();
+void quickSortMedian(vector<int>&, int, int);
 int partition(vector<int>&, int, int);
-
-
 
 int main()
 { 
+	/*
+	//-------------------------------- TEST 1 - reading vector ---------------
+	vector<int> v;
+	int k;
+	for(k=0; k<5; k++){
+		v.push_back(k);
+	}
+	
+	vector<int> v1(v);
+	v.push_back(55);
+
+	//print
+	for(k=0; k<v.size(); k++){ cout << v[k] << ","; }
+	cout << endl;
+	for(k=0; k<v1.size(); k++){ cout << v1[k] << ","; }
+
+
+	cout << endl << endl;
+	*/
+	//------------------------------------- END OF TEST 1
+
 	srand(time(NULL));
 
 	vector<int> myVec;
@@ -32,9 +51,12 @@ int main()
 	//-------------VISUAL TESTING ---------------------------
 	//vector<int> A = myVec;
 	//----------------------------------------------------------
-	vector<int> myVec1 = myVec;
-	vector<int> myVec2 = myVec;
-	vector<int> myVec3 = myVec;
+	//make 3 copies of the origianl vector 
+	//do this by passing in the original vector into the constructor parameter
+	//so when you modify the copies, you don't modify the original or the other copies
+	vector<int> myVec1(myVec);
+	vector<int> myVec2(myVec);
+	vector<int> myVec3(myVec);
 //----------------------------------------------- SORTING USING THE MIDDLE ELEMENT OF THE ARRAY AND SUBARRAY AS PIVOTS -------------------------------------------------------
 
 	clock_t startTime, endTime;
@@ -46,7 +68,7 @@ int main()
 //------------------------------------------ SORTING BY MEDIAN OF THE FIRST, LAST, AND MIDDLE ELEMENTS ---------------------------------------------
 
 	startTime = clock();
-	quickSortMiddle(myVec1, 0, numLoops);
+	quickSortMedian(myVec1, 0, numLoops);
 	endTime = clock();
 	cout << "Quick sort time, with pivot median element: " << (endTime - startTime) / CLOCKS_PER_SEC << " seconds" << endl;
 
@@ -130,8 +152,14 @@ int partition(vector<int>& vec, int num1, int num2)
 	return num4;
 }
 
-void quickSortMedian() {
-
+//still needs a full update
+void quickSortMedian(vector<int>& myVec, int num1, int num2)
+{
+	int num;
+	if (num1<num2)
+	{
+		num = partition(myVec, num1, num2);
+		quickSortMiddle(myVec, num1, num);
+		quickSortMiddle(myVec, num + 1, num2);
+	}
 }
-
-
