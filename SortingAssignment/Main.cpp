@@ -11,35 +11,14 @@ void quickSortMiddle(vector<int>&, int, int);
 //void quickSortMedian(vector<int>&, int, int);
 void quickSortMedian(vector<int>& myVec,int start,int end);
 int medianOfThreePartition(vector<int>& myVec,int p, int r);
-
-
 int partition(vector<int>&, int, int);
+void quickSortMiddleInsert(vector<int>& myVec, int num1, int num2);
+void quickSortMedianInsert(vector<int>& myVec, int start, int end);
 
 
 
 //vector<int> insertSort(vector<int> arr){
-void insertSort(vector<int> &sortedArray) {
-
-	unsigned int i, j;
-
-	int max;
-
-	for (i = 0; i<sortedArray.size(); i++) {
-		//max = arr[i];
-
-		for (j = i; j<sortedArray.size(); j++) {
-			if (sortedArray[i] < sortedArray[j]) {
-				int tmp;
-				tmp = sortedArray[i];
-				sortedArray[i] = sortedArray[j];
-				sortedArray[j] = tmp;
-			}
-
-		}
-
-		//sortedArray[i] = max;
-	}
-}
+void insertSort(vector<int> &sortedArray);
 
 
 
@@ -47,9 +26,9 @@ int main()
 { 
 
 	// ---------------------------TEST 0 - INSERTION--------------------------
-
+/*
 	vector<int> read;
-	read.push_back(5);s
+	read.push_back(5);
 	read.push_back(9);
 	read.push_back(1);
 	read.push_back(7);
@@ -64,13 +43,7 @@ int main()
 	}
 	cout << endl;
 	cout << endl;
-
-	//--------------- END OF TEST 0 ---------------------s
-
-	
-	
-
-	
+	*/
 	/*
 	//-------------------------------- TEST 1 - reading vector ---------------
 	vector<int> v;
@@ -98,7 +71,7 @@ int main()
 
 	//----------------------------------------- Generate random numbers
 	int range = 5000000;
-	int numLoops = 10;
+	int numLoops = 200000;
 
 	for (int i = 0; i < numLoops; i++) {
 
@@ -137,7 +110,7 @@ int main()
 	   //------------------------------------ USING INSERTION SORT.(INSERTION IMPLEMENTED SEPERATELY AND THEN CALLED ------------------------------
 			//---------------------------- ------------------- INSIDE THE QUICKSORT ------------------------------------------------------------
 	startTime = clock();
-	quickSortMiddle(myVec2, 0, numLoops);
+	quickSortMiddleInsert(myVec2, 0, numLoops);
 	endTime = clock();
 	cout << "Quick sort and insertion sort time, with pivot middle element: " << (endTime - startTime) / CLOCKS_PER_SEC << " seconds" << endl;
 
@@ -147,7 +120,7 @@ int main()
 			//---------------------------- ------------------- INSIDE THE QUICKSORT ------------------------------------------------------------
 
 	startTime = clock();
-	quickSortMiddle(myVec3, 0, numLoops);
+	quickSortMedianInsert(myVec3, 0, numLoops);
 	endTime = clock();
 	cout << "Quick sort and insertion sort time, with pivot median element: " << (endTime - startTime) / CLOCKS_PER_SEC << " seconds" << endl;
 
@@ -187,6 +160,24 @@ void quickSortMiddle(vector<int>& myVec, int num1, int num2)
 		quickSortMiddle(myVec, num1, num);
 		quickSortMiddle(myVec, num + 1, num2);
 	}
+	
+}
+
+void quickSortMiddleInsert(vector<int>& myVec, int num1, int num2)
+{
+	int num;
+	if (myVec.size() > 20) {
+		if (num1 < num2)
+		{
+			num = partition(myVec, num1, num2);
+			quickSortMiddle(myVec, num1, num);
+			quickSortMiddle(myVec, num + 1, num2);
+		}
+	
+	}
+	else {
+		insertSort(myVec);
+	}
 }
 
 
@@ -220,21 +211,60 @@ void quickSortMedian(vector<int>& myVec,int start,int end) {
     quickSortMedian(myVec,q,end);
 }
 
+void quickSortMedianInsert(vector<int>& myVec, int start, int end) {
+	int q;
+	if (myVec.size() > 20) {
+		if (end - start < 2) {
+			// To exit the method
+			return;
+		}
+		q = medianOfThreePartition(myVec, start, end);
+		quickSortMedian(myVec, start, q);
+	quickSortMedian(myVec, q, end);
+	}
+	else {
+		insertSort(myVec);
+	}
+}
+
 int medianOfThreePartition(vector<int>& myVec,int num1, int num2) {
-    int x=myVec[num1];
+	// Create shorter variables names
+    int first=myVec[num1];
 	int y=myVec[(num2-num1)/2+num1];
 	int z=myVec[num2-1];
 	int i=num1-1;
 	int j=num2;
 
-    if (y>x && y<z || y>z && y<x ) x=y;
-    else if (z>x && z<y || z>y && z<x ) x=z;
+    if (y>first && y<z || y>z && y<first ) first=y;
+    else if (z>first && z<y || z>y && z<first ) first=z;
     while (1) {
-        do  {j--;} while (myVec[j] > x);
-        do  {i++;} while (myVec[i] < x);
+        do  {j--;} while (myVec[j] > first);
+        do  {i++;} while (myVec[i] < first);
         if  (i < j) swap(myVec[i],myVec[j]);
         else return j+1;
     }
+}
+
+void insertSort(vector<int> &sortedArray) {
+
+	unsigned int num;
+	unsigned int num1;
+
+	int max;
+
+	for (num = 0; num<sortedArray.size(); num++) {
+	// Start insert...
+
+		for (num1 = num; num1<sortedArray.size(); num1++) {
+			if (sortedArray[num] > sortedArray[num1]) {
+				int temp;
+				temp = sortedArray[num];
+				sortedArray[num] = sortedArray[num1];
+				sortedArray[num1] = temp;
+			}
+
+		}
+	}
 }
 
 
