@@ -8,8 +8,14 @@ using namespace std;
 void quickSortMiddle(vector<int>&, int, int);
 
 // quickSortMEdian will take care of any sorting that uses the median of the first,last and middle elements as a pivot
-void quickSortMedian(vector<int>&, int, int);
+//void quickSortMedian(vector<int>&, int, int);
+void quickSortMedian(vector<int>& myVec,int start,int end);
+int medianOfThreePartition(vector<int>& myVec,int p, int r);
+
+
 int partition(vector<int>&, int, int);
+
+
 
 int main()
 { 
@@ -40,7 +46,7 @@ int main()
 
 	//----------------------------------------- Generate random numbers
 	int range = 5000000;
-	int numLoops = 100000;
+	int numLoops = 50000;
 
 	for (int i = 0; i < numLoops; i++) {
 
@@ -152,14 +158,28 @@ int partition(vector<int>& vec, int num1, int num2)
 	return num4;
 }
 
-//still needs a full update
-void quickSortMedian(vector<int>& myVec, int num1, int num2)
-{
-	int num;
-	if (num1<num2)
-	{
-		num = partition(myVec, num1, num2);
-		quickSortMiddle(myVec, num1, num);
-		quickSortMiddle(myVec, num + 1, num2);
-	}
+
+void quickSortMedian(vector<int>& myVec,int start,int end) {
+    int q;
+    if (end-start<2) return;
+    q=medianOfThreePartition(myVec,start,end);
+    quickSortMedian(myVec,start,q);
+    quickSortMedian(myVec,q,end);
+}
+
+int medianOfThreePartition(vector<int>& myVec,int num1, int num2) {
+    int x=myVec[num1];
+	int y=myVec[(num2-num1)/2+num1];
+	int z=myVec[num2-1];
+	int i=num1-1;
+	int j=num2;
+
+    if (y>x && y<z || y>z && y<x ) x=y;
+    else if (z>x && z<y || z>y && z<x ) x=z;
+    while (1) {
+        do  {j--;} while (myVec[j] > x);
+        do  {i++;} while (myVec[i] < x);
+        if  (i < j) swap(myVec[i],myVec[j]);
+        else return j+1;
+    }
 }
