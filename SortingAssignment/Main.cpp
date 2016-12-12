@@ -4,8 +4,11 @@
 
 
 using namespace std;
+// quickSortMiddle will take care of any sorting that uses the middle element as a pivot
+void quickSortMiddle(vector<int>&, int, int);
 
-void quickSort(vector<int>&, int, int);
+// quickSortMEdian will take care of any sorting that uses the median of the first,last and middle elements as a pivot
+void quickSortMedian();
 int partition(vector<int>&, int, int);
 
 
@@ -18,7 +21,7 @@ int main()
 
 	//----------------------------------------- Generate random numbers
 	int range = 5000000;
-	int numLoops = 10;
+	int numLoops = 100000;
 
 	for (int i = 0; i < numLoops; i++) {
 
@@ -27,7 +30,7 @@ int main()
 
 	}
 	//-------------VISUAL TESTING ---------------------------
-	vector<int> A = myVec;
+	//vector<int> A = myVec;
 	//----------------------------------------------------------
 	vector<int> myVec1 = myVec;
 	vector<int> myVec2 = myVec;
@@ -36,14 +39,14 @@ int main()
 
 	clock_t startTime, endTime;
 	startTime = clock();
-	quickSort(myVec, 0, numLoops);
+	quickSortMiddle(myVec, 0, numLoops);
 	endTime = clock();
 	cout << "Quick sort time, with pivot middle element: " << (endTime - startTime) / CLOCKS_PER_SEC << " seconds" << endl;
 
 //------------------------------------------ SORTING BY MEDIAN OF THE FIRST, LAST, AND MIDDLE ELEMENTS ---------------------------------------------
 
 	startTime = clock();
-	quickSort(myVec1, 0, numLoops);
+	quickSortMiddle(myVec1, 0, numLoops);
 	endTime = clock();
 	cout << "Quick sort time, with pivot median element: " << (endTime - startTime) / CLOCKS_PER_SEC << " seconds" << endl;
 
@@ -54,7 +57,7 @@ int main()
 	   //------------------------------------ USING INSERTION SORT.(INSERTION IMPLEMENTED SEPERATELY AND THEN CALLED ------------------------------
 			//---------------------------- ------------------- INSIDE THE QUICKSORT ------------------------------------------------------------
 	startTime = clock();
-	quickSort(myVec2, 0, numLoops);
+	quickSortMiddle(myVec2, 0, numLoops);
 	endTime = clock();
 	cout << "Quick sort and insertion sort time, with pivot middle element: " << (endTime - startTime) / CLOCKS_PER_SEC << " seconds" << endl;
 
@@ -64,14 +67,14 @@ int main()
 			//---------------------------- ------------------- INSIDE THE QUICKSORT ------------------------------------------------------------
 
 	startTime = clock();
-	quickSort(myVec3, 0, numLoops);
+	quickSortMiddle(myVec3, 0, numLoops);
 	endTime = clock();
 	cout << "Quick sort and insertion sort time, with pivot median element: " << (endTime - startTime) / CLOCKS_PER_SEC << " seconds" << endl;
 
 
 
 
-//-----------------------------------------VISUAL TESTING --------------------------------------------------
+/*-------------------------------------------- VISUAL TESTING --------------------------------------------------
 	int p = 0;
 	int q = 10;
 
@@ -87,21 +90,21 @@ int main()
 		cout << e << " ";
 	cout << endl;
 
-//------------------------------------------------------------------------------------------------------------
+*///--------------------------------------- END OF VISUAL TESTING ---------------------------------------------
 
 	system("pause");
 	return 0;
 }
 
 
-void quickSort(vector<int>& myVec, int num1, int num2)
+void quickSortMiddle(vector<int>& myVec, int num1, int num2)
 {
 	int num;
 	if (num1<num2)
 	{
 		num = partition(myVec, num1, num2);
-		quickSort(myVec, num1, num);
-		quickSort(myVec, num + 1, num2);
+		quickSortMiddle(myVec, num1, num);
+		quickSortMiddle(myVec, num + 1, num2);
 	}
 }
 
@@ -127,5 +130,8 @@ int partition(vector<int>& vec, int num1, int num2)
 	return num4;
 }
 
+void quickSortMedian() {
+
+}
 
 
