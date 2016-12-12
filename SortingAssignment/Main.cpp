@@ -47,14 +47,21 @@ int main()
 	endTime = clock();
 	cout << "Quick sort time, with pivot median element: " << (endTime - startTime) / CLOCKS_PER_SEC << " seconds" << endl;
 
-//------------------------------------------- SORTING BY MIDDLE ELEMENT OF THE ARRAY AND SUBARRAYS AS THE PIVOTS ------------------------------------
 
+
+//------------------------------------------- SORTING BY MIDDLE ELEMENT OF THE ARRAY AND SUBARRAYS AS THE PIVOTS ------------------------------------
+	//----------------------------------- WHEN THE SIZE OF ANY SUBARRAYS REDUCES TO LESS THAN 20, SORT THE SUBARRAY ----------------------------
+	   //------------------------------------ USING INSERTION SORT.(INSERTION IMPLEMENTED SEPERATELY AND THEN CALLED ------------------------------
+			//---------------------------- ------------------- INSIDE THE QUICKSORT ------------------------------------------------------------
 	startTime = clock();
 	quickSort(myVec2, 0, numLoops);
 	endTime = clock();
 	cout << "Quick sort and insertion sort time, with pivot middle element: " << (endTime - startTime) / CLOCKS_PER_SEC << " seconds" << endl;
 
-//------------------------------- SORTING BY MEDIAN OF THE FIRST, LAST, MIDDLE ELEMENTS OF THE ARRAY AND SUBARRAYS AS THE PIVOTS ------------
+//------------------------------------------- SORTING BY MEDIAN OF THE FIRST, LAST, MIDDLE ELEMENTS OF THE ARRAY AND SUBARRAYS AS THE PIVOTS ------------------------------------
+	//----------------------------------- WHEN THE SIZE OF ANY SUBARRAYS REDUCES TO LESS THAN 20, SORT THE SUBARRAY ----------------------------
+		//------------------------------------ USING INSERTION SORT.(INSERTION IMPLEMENTED SEPERATELY AND THEN CALLED ------------------------------
+			//---------------------------- ------------------- INSIDE THE QUICKSORT ------------------------------------------------------------
 
 	startTime = clock();
 	quickSort(myVec3, 0, numLoops);
