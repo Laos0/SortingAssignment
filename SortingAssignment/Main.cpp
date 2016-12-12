@@ -17,8 +17,60 @@ int partition(vector<int>&, int, int);
 
 
 
+//vector<int> insertSort(vector<int> arr){
+void insertSort(vector<int> &sortedArray) {
+
+	unsigned int i, j;
+
+	int max;
+
+	for (i = 0; i<sortedArray.size(); i++) {
+		//max = arr[i];
+
+		for (j = i; j<sortedArray.size(); j++) {
+			if (sortedArray[i] < sortedArray[j]) {
+				int tmp;
+				tmp = sortedArray[i];
+				sortedArray[i] = sortedArray[j];
+				sortedArray[j] = tmp;
+			}
+
+		}
+
+		//sortedArray[i] = max;
+	}
+}
+
+
+
 int main()
 { 
+
+	// ---------------------------TEST 0 - INSERTION--------------------------
+
+	vector<int> read;
+	read.push_back(5);s
+	read.push_back(9);
+	read.push_back(1);
+	read.push_back(7);
+	int p = 0;
+	for (p = 0; p < read.size(); p++) {
+		cout << read[p] << ",";
+	}
+	cout << endl;
+	insertSort(read);
+	for (p = 0; p < read.size(); p++) {
+		cout << read[p] << ",";
+	}
+	cout << endl;
+	cout << endl;
+
+	//--------------- END OF TEST 0 ---------------------s
+
+	
+	
+
+	
 	/*
 	//-------------------------------- TEST 1 - reading vector ---------------
 	vector<int> v;
@@ -46,7 +98,7 @@ int main()
 
 	//----------------------------------------- Generate random numbers
 	int range = 5000000;
-	int numLoops = 50000;
+	int numLoops = 10;
 
 	for (int i = 0; i < numLoops; i++) {
 
@@ -55,7 +107,7 @@ int main()
 
 	}
 	//-------------VISUAL TESTING ---------------------------
-	//vector<int> A = myVec;
+	vector<int> A = myVec;
 	//----------------------------------------------------------
 	//make 3 copies of the origianl vector 
 	//do this by passing in the original vector into the constructor parameter
@@ -111,14 +163,15 @@ int main()
 		cout << e << " ";
 	cout << endl;
 
-	quickSort(A, p, q);
+	quickSortMiddle(A, p, q);
 
 	cout << "======Sorted=======" << endl;
 	for (auto e : A)
 		cout << e << " ";
 	cout << endl;
 
-*///--------------------------------------- END OF VISUAL TESTING ---------------------------------------------
+*/
+ //--------------------------------------- END OF VISUAL TESTING ---------------------------------------------
 
 	system("pause");
 	return 0;
@@ -183,3 +236,5 @@ int medianOfThreePartition(vector<int>& myVec,int num1, int num2) {
         else return j+1;
     }
 }
+
+
